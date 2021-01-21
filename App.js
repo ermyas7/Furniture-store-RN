@@ -1,11 +1,30 @@
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
+
+//screens
+import {Home, ItemDetail} from './app/screens';
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+  },
+  border: 'transparent',
+};
+
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <SafeAreaView>
-      <Text>Hello</Text>
-    </SafeAreaView>
+    <NavigationContainer theme={theme}>
+      <Stack.Navigator
+        screenOptions={{headerShown: false}}
+        initialRouteName={'Home'}>
+        <Stack.Screen name={'Home'} component={Home} />
+        <Stack.Screen name={'ItemDetail'} component={ItemDetail} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
