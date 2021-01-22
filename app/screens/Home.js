@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   View,
@@ -24,15 +25,26 @@ const ScrollableCard = ({productList, navigation}) => {
               borderRadius: SIZES.radius * 2,
             }}
           />
-          <View style={{position: 'absolute', top: 15, left: '10%', right: '10%'}}> 
+          <View
+            style={{position: 'absolute', top: 15, left: '10%', right: '10%'}}>
             <Text style={{color: COLORS.lightGray2, ...FONTS.h3}}>
               Furniture
             </Text>
-            <Text style={{marginTop: SIZES.base, color: COLORS.white, ...FONTS.h2}}>
+            <Text
+              style={{marginTop: SIZES.base, color: COLORS.white, ...FONTS.h2}}>
               {item.productName}
             </Text>
           </View>
-          <View style={{position: 'absolute', bottom: 20, left: 30, borderRadius: 15, paddingHorizontal: 15, paddingVertical: 10, backgroundColor: COLORS.transparentLightGray}}>
+          <View
+            style={{
+              position: 'absolute',
+              bottom: 20,
+              left: 30,
+              borderRadius: 15,
+              paddingHorizontal: 15,
+              paddingVertical: 10,
+              backgroundColor: COLORS.transparentLightGray,
+            }}>
             <Text style={{...FONTS.h2}}>$ {item.price.toFixed(2)}</Text>
           </View>
         </View>
@@ -45,7 +57,7 @@ const ScrollableCard = ({productList, navigation}) => {
       showsHorizontalScrollIndicator={false}
       data={productList}
       renderItem={renderCard}
-      keyExtractor={(item) => item.productId}
+      keyExtractor={(item) => item.productId.toString()}
     />
   );
 };
@@ -60,7 +72,12 @@ const ScrollableTab = ({tabList, selectedTab, onPress}) => {
           {item.name}
         </Text>
         {selectedTab.id === item.id ? (
-          <View style={{alignItems: 'center', marginTop: SIZES.base}}>
+          <View
+            style={{
+              alignItems: 'center',
+              marginTop: SIZES.base,
+              marginBottom: SIZES.padding,
+            }}>
             <View
               style={{
                 width: 10,
@@ -81,7 +98,7 @@ const ScrollableTab = ({tabList, selectedTab, onPress}) => {
         showsHorizontalScrollIndicator={false}
         data={tabList}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
       />
     </View>
   );
@@ -253,6 +270,68 @@ const Home = ({navigation}) => {
       </View>
     );
   };
+  const renderPromotionCard = () => {
+    return (
+      <View
+        style={[
+          styles.shadow,
+          {
+            flexDirection: 'row',
+            marginHorizontal: SIZES.padding,
+            marginVertical: SIZES.padding / 2,
+            paddingVertical: SIZES.radius,
+            height: 110,
+            borderRadius: 20,
+            backgroundColor: COLORS.white,
+          },
+        ]}>
+        <View
+          style={{
+            width: 50,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: COLORS.lightGray2,
+            borderRadius: 20,
+            marginLeft: SIZES.padding / 2,
+          }}>
+          <Image
+            source={images.sofa}
+            resizeMode="contain"
+            style={{width: '60%', height: '60%'}}
+          />
+        </View>
+        {/* Wording section */}
+        <View
+          style={{flex: 1, marginLeft: SIZES.radius, justifyContent: 'center'}}>
+          <Text style={{...FONTS.h2}}>Special Offer</Text>
+          <Text style={{...FONTS.body3}}>Adding to your cart</Text>
+        </View>
+        {/*  button */}
+        <View
+          style={{
+            marginRight: SIZES.radius,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <TouchableOpacity
+            style={{
+              backgroundColor: COLORS.primary,
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: 40,
+              height: 60,
+              borderRadius: 10,
+            }}>
+            <Image
+              source={icons.chevron}
+              resizeMode="contain"
+              style={{width: '50%', height: '50%'}}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
   return (
     <SafeAreaView style={styles.container}>
       {renderHeader()}
@@ -267,6 +346,10 @@ const Home = ({navigation}) => {
           navigation={navigation}
           productList={selectedTab.productList}
         />
+      </View>
+      {/* footer promotion card */}
+      <View style={{height: '19%', justifyContent: 'flex-end'}}>
+        {renderPromotionCard()}
       </View>
     </SafeAreaView>
   );
