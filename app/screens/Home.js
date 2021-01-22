@@ -14,7 +14,9 @@ import {COLORS, icons, SIZES, FONTS, images} from '../constants';
 const ScrollableCard = ({productList, navigation}) => {
   const renderCard = ({item}) => {
     return (
-      <TouchableOpacity style={{marginLeft: SIZES.padding}}>
+      <TouchableOpacity
+        style={{marginLeft: SIZES.padding}}
+        onPress={() => navigation.navigate('ItemDetail', {itemInfo: item})}>
         <View style={{width: SIZES.width / 2}}>
           <Image
             source={item.image}
