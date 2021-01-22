@@ -10,6 +10,46 @@ import {
 } from 'react-native';
 import {COLORS, icons, SIZES, FONTS, images} from '../constants';
 
+const ScrollableCard = ({productList, navigation}) => {
+  const renderCard = ({item}) => {
+    return (
+      <TouchableOpacity style={{marginLeft: SIZES.padding}}>
+        <View style={{width: SIZES.width / 2}}>
+          <Image
+            source={item.image}
+            resizeMode="cover"
+            style={{
+              width: '100%',
+              height: '100%',
+              borderRadius: SIZES.radius * 2,
+            }}
+          />
+          <View style={{position: 'absolute', top: 15, left: '10%', right: '10%'}}> 
+            <Text style={{color: COLORS.lightGray2, ...FONTS.h3}}>
+              Furniture
+            </Text>
+            <Text style={{marginTop: SIZES.base, color: COLORS.white, ...FONTS.h2}}>
+              {item.productName}
+            </Text>
+          </View>
+          <View style={{position: 'absolute', bottom: 20, left: 30, borderRadius: 15, paddingHorizontal: 15, paddingVertical: 10, backgroundColor: COLORS.transparentLightGray}}>
+            <Text style={{...FONTS.h2}}>$ {item.price.toFixed(2)}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+  return (
+    <FlatList
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      data={productList}
+      renderItem={renderCard}
+      keyExtractor={(item) => item.productId}
+    />
+  );
+};
+
 const ScrollableTab = ({tabList, selectedTab, onPress}) => {
   const renderItem = ({item}) => {
     return (
@@ -47,7 +87,7 @@ const ScrollableTab = ({tabList, selectedTab, onPress}) => {
   );
 };
 
-const Home = () => {
+const Home = ({navigation}) => {
   const [tabList, setTabList] = React.useState([
     {
       id: 0,
@@ -222,6 +262,12 @@ const Home = () => {
         selectedTab={selectedTab}
         onPress={(item) => setSelectedTab(item)}
       />
+      <View style={{flex: 1}}>
+        <ScrollableCard
+          navigation={navigation}
+          productList={selectedTab.productList}
+        />
+      </View>
     </SafeAreaView>
   );
 };
