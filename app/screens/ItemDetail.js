@@ -1,4 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {
   View,
@@ -9,7 +10,8 @@ import {
 } from 'react-native';
 import {COLORS, FONTS, icons, SIZES} from '../constants';
 
-const ItemDetail = ({route}) => {
+const ItemDetail = ({route, navigation}) => {
+  console.log(navigation);
   const renderHeader = () => {
     return (
       <View
@@ -110,11 +112,67 @@ const ItemDetail = ({route}) => {
           <Text style={{color: COLORS.lightGray2, ...FONTS.body2}}>
             Furniture
           </Text>
-          <Text style={{color: COLORS.white, ...FONTS.h1, marginTop: SIZES.base}}>
+          <Text
+            style={{color: COLORS.white, ...FONTS.h1, marginTop: SIZES.base}}>
             {itemInfo.productName}
           </Text>
         </View>
       </>
+    );
+  };
+  const renderFooter = () => {
+    return (
+      <View
+        style={{
+          position: 'absolute',
+          bottom: '5%',
+          left: SIZES.padding,
+          right: SIZES.padding,
+          flexDirection: 'row',
+          height: 70,
+          backgroundColor: COLORS.white,
+          borderRadius: 35,
+        }}>
+        <View style={{flex: 2, alignItems: 'center', justifyContent: 'center'}}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Image
+              source={icons.dashboard}
+              resizeMode="contain"
+              style={{width: 25, height: 25, tintColor: COLORS.gray}}
+            />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{flex: 1.5, alignItems: 'center', justifyContent: 'center'}}>
+          <TouchableOpacity
+            style={{
+              width: 50,
+              height: 50,
+              borderRadius: 10,
+              backgroundColor: COLORS.primary,
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            onPress={() => {}}>
+            <Image
+              source={icons.plus}
+              resizeMode="contain"
+              style={{width: 20, height: 20, tintColor: COLORS.white}}
+            />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{flex: 2, alignItems: 'center', justifyContent: 'center'}}>
+          <TouchableOpacity
+            onPress={() => {}}>
+            <Image
+              source={icons.user}
+              resizeMode="contain"
+              style={{width: 25, height: 25, tintColor: COLORS.gray}}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   };
   const renderInfo = () => {
@@ -127,6 +185,7 @@ const ItemDetail = ({route}) => {
           style={{width: '100%', height: '100%'}}>
           {renderHeader()}
           {renderProductTag()}
+          {renderFooter()}
         </ImageBackground>
       );
     }
