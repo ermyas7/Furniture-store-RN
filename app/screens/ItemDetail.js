@@ -89,11 +89,30 @@ const ItemDetail = ({route}) => {
               {itemInfo.productName}
             </Text>
           </View>
-          <View style={{flex: 1.5, justifyContent: 'flex-end', alignItems: 'flex-end'}}>
+          <View
+            style={{
+              flex: 1.5,
+              justifyContent: 'flex-end',
+              alignItems: 'flex-end',
+            }}>
             <Text style={{color: COLORS.darkGreen, ...FONTS.h3}}>
               $ {itemInfo.price.toFixed(2)}
             </Text>
           </View>
+        </View>
+        <View
+          style={{
+            position: 'absolute',
+            bottom: '20%',
+            left: SIZES.padding,
+            right: SIZES.padding,
+          }}>
+          <Text style={{color: COLORS.lightGray2, ...FONTS.body2}}>
+            Furniture
+          </Text>
+          <Text style={{color: COLORS.white, ...FONTS.h1, marginTop: SIZES.base}}>
+            {itemInfo.productName}
+          </Text>
         </View>
       </>
     );
